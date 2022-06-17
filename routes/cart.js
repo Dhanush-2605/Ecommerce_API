@@ -1,4 +1,4 @@
-const router = require("express").router();
+const router = require("express").Router();
 const Cart = require("../models/Cart");
 
 const {
@@ -6,7 +6,7 @@ const {
   verifyTokenAndAdmin,
   verifyTokenAndAuthorisation,
 } = require("./verifyToken");
-router.post("/", verifyToken, async (res, res) => {
+router.post("/", verifyToken, async (req, res) => {
   const newCart = new Cart(req.body);
 
   try {
@@ -14,7 +14,7 @@ router.post("/", verifyToken, async (res, res) => {
     res.status(200).json(savedCart);
   } catch (err) {
     res.status(500).json(res);
-  } 
+  }
 });
 
 router.put("/:id", verifyTokenAndAuthorisation, async (req, res) => {

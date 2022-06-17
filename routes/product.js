@@ -12,10 +12,8 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
   const newProduct = new Product(req.body);
   console.log(req.body);
 
-
-
   try {
-    const savedProduct  = await newProduct.save();
+    const savedProduct = await newProduct.save();
     res.status(200).json(savedProduct);
   } catch (err) {
     res.status(500).json(err);
@@ -68,14 +66,14 @@ router.get("/", async (req, res) => {
     let products;
     if (qNew) {
       products = await Product.find().sort({ createdAt: -1 }).limit(1);
-    } else if(qCategory){
+    } else if (qCategory) {
       products = await Product.find({
-        categories:{
-          $in:[qCategory]
-        }
+        categories: {
+          $in: [qCategory],
+        },
       });
-    }else{
-      products=await Product.find();
+    } else {
+      products = await Product.find();
     }
     // const product = await find();
     res.status(200).json(products);
