@@ -9,7 +9,8 @@ const orderRoute = require("./routes/order.js");
 const cartRoute = require("./routes/cart");
 const cors = require("cors");
 const stripeRoute = require("./routes/stripe");
-// const orderRoute=require("./routes/order");
+
+//  const orderRoute=require("./routes/order");
 dotenv.config();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -34,3 +35,6 @@ app.listen(process.env.PORT || 5000, () => {
 
 // pssword
 // 123245435
+
+
+//dhanush

@@ -47,8 +47,8 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 });
 
 //Get Product
-
-router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
+// , verifyTokenAndAdmin
+router.get("/find/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     res.status(200).json(product);
@@ -76,7 +76,7 @@ router.get("/", async (req, res) => {
       products = await Product.find();
     }
     // const product = await find();
-    res.status(200).json(products);
+    return res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
   }

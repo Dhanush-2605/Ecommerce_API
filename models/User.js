@@ -12,6 +12,10 @@ const UserSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    img :{type:String},
+    phone:{type:Number},
+    address:{type:String},
+    isActive:{type:String}
   },
   { timestamps: true }
 );

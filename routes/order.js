@@ -45,6 +45,16 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
+//Get ALL
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
+  try {
+    const orders = await Order.find();
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //Get Product
 
 router.get("/find/:userId", verifyTokenAndAuthorisation, async (req, res) => {
@@ -52,7 +62,8 @@ router.get("/find/:userId", verifyTokenAndAuthorisation, async (req, res) => {
     const orders = await Order.find({ userId: req.params.userId });
     res.status(200).json(orders);
   } catch (err) {
-    res.status.json(err);
+    // res.status.json(err);
+    console.log(err);
   }
 });
 
@@ -67,14 +78,23 @@ router.get("/find/:userId", verifyTokenAndAdmin, async (req, res) => {
 
 //Get stats
 router.get("/income", verifyTokenAndAdmin, async (req, res) => {
+  const productId = req.query.id;
+
   const date = new Date();
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
-  console.log(lastMonth);
+
   const previousMonth = new Date(date.setMonth(lastMonth.getMonth() - 1));
-  console.log(previousMonth);
+
   try {
     const income = await Order.aggregate([
-      { $match: { createdAt: { $gte: previousMonth } } },
+      {
+        $match: {
+          createdAt: { $gte: previousMonth },
+          ...(productId && {
+            products: { $elemMatch: { productId: productId } },
+          }),
+        },
+      },
       {
         $project: {
           month: { $month: "$createdAt" },
