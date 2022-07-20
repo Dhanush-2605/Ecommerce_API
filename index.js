@@ -14,7 +14,7 @@ const stripeRoute = require("./routes/stripe");
 dotenv.config();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+console.log(process.env.KEY_ID);
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => console.log("DB Connection Successfull!"))
@@ -35,6 +35,5 @@ app.listen(process.env.PORT || 5000, () => {
 
 // pssword
 // 123245435
-
 
 //dhanush

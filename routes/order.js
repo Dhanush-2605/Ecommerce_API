@@ -8,12 +8,12 @@ const {
 const Order = require("../models/Order");
 
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
-  const newOrder = new Product(req.body);
+  const newOrder = new Order(req.body);
   console.log(req.body);
 
   try {
-    const savedCart = await newCart.save();
-    res.status(200).json(savedCart);
+    const savedOrder = await newOrder.save();
+    res.status(200).json(savedOrder);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -67,7 +67,7 @@ router.get("/find/:userId", verifyTokenAndAuthorisation, async (req, res) => {
   }
 });
 
-router.get("/find/:userId", verifyTokenAndAdmin, async (req, res) => {
+router.get("/find", verifyTokenAndAdmin, async (req, res) => {
   try {
     const orders = await Order.find();
     res.status(200).json(orders);
