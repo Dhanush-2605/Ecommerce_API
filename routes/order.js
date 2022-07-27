@@ -78,7 +78,10 @@ router.get("/find", verifyTokenAndAdmin, async (req, res) => {
 
 //Get stats
 router.get("/income", verifyTokenAndAdmin, async (req, res) => {
-  const productId = req.query.id;
+  const productId = req.query.productId;
+  
+
+  
 
   const date = new Date();
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1));

@@ -10,8 +10,8 @@ const crypto = require("crypto");
 
 console.log(process.env.KEY_ID);
 const instance = new Razorpay({
-  key_id: "dummy",
-  key_secret: process.env.SECRET_KEY,
+  key_id: "refer here",
+  key_secret: "refer here",
 });
 
 router.post("/payment", (req, res) => {
@@ -32,7 +32,7 @@ router.post("/verify", (req, res) => {
 
     const sign = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSign = crypto
-      .createHmac("sha256", "pkYFN5ANQf36uTdGL7Tnslvt")
+      .createHmac("sha256", "refer here")
       .update(sign.toString())
       .digest("hex");
 

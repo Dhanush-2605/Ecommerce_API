@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { findByIdAndUpdate } = require("../models/User");
 const User = require("../models/User");
 const { verifyToken } = require("./verifyToken");
 const { verifyTokenAndAdmin } = require("./verifyToken");
@@ -26,6 +27,28 @@ router.put("/:id", verifyToken, async (req, res) => {
     // console.log(err);
   }
 });
+//pass
+router.put("/profile/:id",verifyToken,async (req,res)=>{
+  // console.log(req.body);
+  console.log(req.params.id);
+  const img=req.body.img;
+  console.log(img);
+  // const profile=JSON.stringify(req.body);
+  try{
+    const updatedProfile=await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set:{img:img}
+      }
+
+    )
+res.status(200).json(updatedProfile)
+  }catch(err){
+    console.log(err)
+
+  }
+
+})
 
 router.delete("/:id", verifyTokenAndAuthorisation, async (req, res) => {
   try {

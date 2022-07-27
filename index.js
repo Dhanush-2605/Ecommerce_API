@@ -1,18 +1,21 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+
 const dotenv = require("dotenv");
 const userRoute = require("./routes/user");
+const bodyParser = require('body-parser')
 const authRoute = require("./routes/auth");
 const productRoute = require("./routes/product");
 const orderRoute = require("./routes/order.js");
 const cartRoute = require("./routes/cart");
 const cors = require("cors");
-const stripeRoute = require("./routes/stripe");
+const razorRoute = require("./routes/razorpay");
 
-//  const orderRoute=require("./routes/order");
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 dotenv.config();
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 console.log(process.env.KEY_ID);
 mongoose
@@ -27,7 +30,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/products", productRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
-app.use("/api/checkout", stripeRoute);
+app.use("/api/checkout", razorRoute);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log("Server Started...");
@@ -36,4 +39,4 @@ app.listen(process.env.PORT || 5000, () => {
 // pssword
 // 123245435
 
-//dhanush
+
