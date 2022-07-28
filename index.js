@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const userRoute = require("./routes/user");
 const bodyParser = require('body-parser')
 const authRoute = require("./routes/auth");
-const productRoute = require("./routes/product");
+const productRoute = require("./routes/product"); 
 const orderRoute = require("./routes/order.js");
 const cartRoute = require("./routes/cart");
 const cors = require("cors");
@@ -14,7 +14,7 @@ const razorRoute = require("./routes/razorpay");
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-dotenv.config();
+dotenv.config({path:"./.env"});
 // app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 console.log(process.env.KEY_ID);
