@@ -19,7 +19,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 //Update
-router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
+router.put("/:id", verifyTokenAndAuthorisation, async (req, res) => {
   try {
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
@@ -35,10 +35,21 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
     // console.log(err);
   }
 });
+
+// router.put("find/:id",verifyToken,async (req,res)=>{
+//   try{
+//     const res=User.findByIdAndUpdate({
+//       req.params.id
+//     })
+
+//   }catch(err){
+
+//   }
+// })
 //Delete
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
-    await Order.findByIdAndDelete(req.params.id);
+    await Order.findByIdAndDelete();
     res.status(200).json("Successfully Order Deleted");
   } catch (err) {
     res.status(500).json(err);
@@ -57,7 +68,8 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 
 //Get Product
 
-router.get("/find/:userId", verifyTokenAndAuthorisation, async (req, res) => {
+router.get("/find/:userId", verifyToken, async (req, res) => {
+  console.log(req.params.userId);
   try {
     const orders = await Order.find({ userId: req.params.userId });
     res.status(200).json(orders);
@@ -67,14 +79,7 @@ router.get("/find/:userId", verifyTokenAndAuthorisation, async (req, res) => {
   }
 });
 
-router.get("/find", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    const orders = await Order.find();
-    res.status(200).json(orders);
-  } catch (err) {
-    res.status.json(err);
-  }
-});
+
 
 //Get stats
 router.get("/income", verifyTokenAndAdmin, async (req, res) => {

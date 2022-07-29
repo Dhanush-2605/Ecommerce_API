@@ -14,10 +14,11 @@ const razorRoute = require("./routes/razorpay");
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-dotenv.config({path:"./.env"});
+dotenv.config();
+console.log(process.env.MONGO_URL);
 // app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-console.log(process.env.KEY_ID);
+console.log(process.env.RAZORPAY_SECRET_KEY);
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => console.log("DB Connection Successfull!"))

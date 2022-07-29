@@ -4,6 +4,7 @@ const { object } = require("webidl-conversions");
 const OrderSchema = mongoose.Schema(
   {
     userId: { type: String, required: true },
+    name: { type: String },
     products: [
       {
         productId: {
@@ -13,12 +14,15 @@ const OrderSchema = mongoose.Schema(
           type: Number,
           default: 1,
         },
-        productImg:{
-          type:String
+        productImg: {
+          type: String,
         },
-        productName:{
-          type:String
-        }
+        productName: {
+          type: String,
+        },
+        price: {
+          type: String,
+        },
       },
     ],
     amount: { type: Number, required: true },

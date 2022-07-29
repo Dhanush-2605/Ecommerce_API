@@ -3,18 +3,19 @@
 // const stripe = require("stripe")(KEY);
 
 // module.exports = router;
+const dotenv = require("dotenv");
+dotenv.config();
 
 const router = require("express").Router();
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 
-console.log(process.env.KEY_ID);
-// process.env.RAZORPAY_KEY_ID
+console.log(process.env.KEY_SECRET);
 
 // process.env.RAZORPAY_SECRET_KEY
 const instance = new Razorpay({
-  key_id:"123",
-  key_secret:"234",
+  key_id: process.env.KEY_ID,
+  key_secret: process.env.KEY_SECRET,
 });
 
 router.post("/payment", (req, res) => {
@@ -35,7 +36,7 @@ router.post("/verify", (req, res) => {
 
     const sign = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSign = crypto
-      .createHmac("sha256", "3jUIH3qZprUufOQNv5Jesgc7")
+      .createHmac("sha256", process.env.KEY_SECRET)
       .update(sign.toString())
       .digest("hex");
 
