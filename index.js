@@ -12,13 +12,13 @@ const cartRoute = require("./routes/cart");
 const cors = require("cors");
 const razorRoute = require("./routes/razorpay");
 
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+// app.use(bodyParser.json({ limit: '50mb' }));
+// app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 dotenv.config();
-console.log(process.env.MONGO_URL);
-// app.use(express.urlencoded({ extended: true }));
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-console.log(process.env.RAZORPAY_SECRET_KEY);
+
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => console.log("DB Connection Successfull!"))
@@ -37,7 +37,5 @@ app.listen(process.env.PORT || 5000, () => {
   console.log("Server Started...");
 });
 
-// pssword
-// 123245435
 
 

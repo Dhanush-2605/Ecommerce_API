@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-const { object } = require("webidl-conversions");
+
 
 const OrderSchema = mongoose.Schema(
   {
-    userId: { type: String, required: true },
+    userId: { type: String },
     name: { type: String },
     products: [
       {

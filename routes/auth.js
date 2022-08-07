@@ -55,25 +55,20 @@ router.post("/login", async (req, res) => {
 
     return res.status(200).json({ ...others, accessToken });
   } catch (err) {
-    // res.status(500).json(err);
-    // res.send(err);
+
     console.log(err);
-    // return;
+    
   }
 });
 
 router.post("/logout", verifyTokenAndAuthorisation, (req, res) => {
-  // accessToken=undefined;
   try {
-    // req.body.accessToken=undefined;
     res.status(200).json(req.body);
   } catch (err) {
     console.log(err);
   }
 
   res.status(200).json("logged out");
-  // res.send("logouted");
+  
 });
 module.exports = router;
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTQ4MTVmMTJlYjc2ZjEwMjAzNjdiYSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NTQ5NDgzMTAsImV4cCI6MTY1NTIwNzUxMH0.GFONbYfY4GS_CG-YqYE5ByD0KOjPXH-qi5ShoQghId8

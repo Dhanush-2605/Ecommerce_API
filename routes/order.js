@@ -7,9 +7,8 @@ const {
 
 const Order = require("../models/Order");
 
-router.post("/", verifyTokenAndAdmin, async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   const newOrder = new Order(req.body);
-  console.log(req.body);
 
   try {
     const savedOrder = await newOrder.save();
@@ -18,11 +17,17 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 //Update
-router.put("/:id", verifyTokenAndAuthorisation, async (req, res) => {
+
+router.put("/:id", verifyToken, async (req, res) => {
+  console.log(req.params.id);
+  console.log(req.user);
+
   try {
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
+
       {
         $set: req.body,
       },
@@ -32,24 +37,14 @@ router.put("/:id", verifyTokenAndAuthorisation, async (req, res) => {
   } catch (err) {
     //refer here
     // return res.status(500).json(err);
-    // console.log(err);
+    console.log(err);
   }
 });
 
-// router.put("find/:id",verifyToken,async (req,res)=>{
-//   try{
-//     const res=User.findByIdAndUpdate({
-//       req.params.id
-//     })
-
-//   }catch(err){
-
-//   }
-// })
 //Delete
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
-    await Order.findByIdAndDelete();
+    await Order.findByIdAndDelete(req.params.id);
     res.status(200).json("Successfully Order Deleted");
   } catch (err) {
     res.status(500).json(err);
@@ -71,7 +66,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 router.get("/find/:userId", verifyToken, async (req, res) => {
   console.log(req.params.userId);
   try {
-    const orders = await Order.find({ userId: req.params.userId });
+    const orders = await Order.findById(req.params.userId);
     res.status(200).json(orders);
   } catch (err) {
     // res.status.json(err);
@@ -79,14 +74,9 @@ router.get("/find/:userId", verifyToken, async (req, res) => {
   }
 });
 
-
-
 //Get stats
 router.get("/income", verifyTokenAndAdmin, async (req, res) => {
   const productId = req.query.productId;
-  
-
-  
 
   const date = new Date();
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
