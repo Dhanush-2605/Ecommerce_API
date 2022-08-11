@@ -13,7 +13,7 @@ const UserSchema = mongoose.Schema(
       default: false,
     },
     img :{type:String},
-    phone:{type:Number},
+    number:{type:Number},
     address:{type:String},
     isActive:{type:String}
   },

@@ -76,7 +76,9 @@ router.get("/find/:userId", verifyToken, async (req, res) => {
 
 //Get stats
 router.get("/income", verifyTokenAndAdmin, async (req, res) => {
-  const productId = req.query.productId;
+  const productId = req.query.pid;
+  console.log(productId);
+  // const productId=req.params.productId;
 
   const date = new Date();
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
@@ -88,9 +90,10 @@ router.get("/income", verifyTokenAndAdmin, async (req, res) => {
       {
         $match: {
           createdAt: { $gte: previousMonth },
-          ...(productId && {
+          // ...(productId && {
             products: { $elemMatch: { productId: productId } },
-          }),
+ 
+          // ),
         },
       },
       {
@@ -104,9 +107,10 @@ router.get("/income", verifyTokenAndAdmin, async (req, res) => {
         },
       },
     ]);
-    res.status(200).send(json);
+    res.status(200).json(income);
   } catch (err) {
-    res.status(500).json(err);
+    // res.status(500).json(err);
+    console.log(err);
   }
 });
 

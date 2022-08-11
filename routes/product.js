@@ -57,11 +57,17 @@ router.get("/find/:id", async (req, res) => {
   }
 });
 
+// router.get("/",verifyToken,async (req,res)=>{
+//   console.log(req.query);
+//   // const products=await Product.find();
+// })
 //Get All Products
 
+
 router.get("/", async (req, res) => {
-  const qNew = req.params.new;
-  const qCategory = req.params.category;
+  const qNew = req.query.new;
+  const qCategory = req.query.category;
+
   try {
     let products;
     if (qNew) {
