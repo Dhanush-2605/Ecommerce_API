@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const CryptoJS = require("crypto-js");
+
 const { findByIdAndUpdate } = require("../models/User");
 const User = require("../models/User");
 const { verifyToken } = require("./verifyToken");

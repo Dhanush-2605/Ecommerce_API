@@ -19,6 +19,7 @@
     "mongoose": "^6.3.6",
     "nodemon": "^2.0.16",
     "razorpay": "^2.8.2",
-    "stripe": "^9.8.0"
+    "stripe": "^9.8.0",
+    "twilio": "^3.80.1"
   }
 }

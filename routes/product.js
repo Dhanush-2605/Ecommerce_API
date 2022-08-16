@@ -64,6 +64,24 @@ router.get("/find/:id", async (req, res) => {
 //Get All Products
 
 
+router.get("/:type/:cat",verifyToken,async (req,res)=>{
+  const type=req.params.type;
+  const cat=req.params.cat;
+  try{
+    const products=await Product.find({
+      categories:{
+        $in:[type,cat]
+
+      }
+    })
+    res.status(200).json(products);
+
+  }catch(err){
+    console.log(err);
+
+  }
+})
+
 router.get("/", async (req, res) => {
   const qNew = req.query.new;
   const qCategory = req.query.category;
