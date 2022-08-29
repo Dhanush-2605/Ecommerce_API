@@ -16,6 +16,9 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
     const savedProduct = await newProduct.save();
     res.status(200).json(savedProduct);
   } catch (err) {
+
+
+    
     res.status(500).json(err);
   }
 });
@@ -53,6 +56,25 @@ router.get("/find/:id", async (req, res) => {
     const product = await Product.findById(req.params.id);
     res.status(200).json(product);
   } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.put("/find/:id", verifyToken, async (req, res) => {
+  console.log(req.body);
+  const id = req.params.id;
+  try {
+    const product = await Product.findByIdAndUpdate(
+      id,
+      {
+        $push:{reviews: req.body},
+      },
+      {
+        new: true,
+      }
+    );
+    res.status(200).json(product);
+  } catch (err) {
     res.status.json(err);
   }
 });
@@ -63,24 +85,20 @@ router.get("/find/:id", async (req, res) => {
 // })
 //Get All Products
 
-
-router.get("/:type/:cat",verifyToken,async (req,res)=>{
-  const type=req.params.type;
-  const cat=req.params.cat;
-  try{
-    const products=await Product.find({
-      categories:{
-        $in:[type,cat]
-
-      }
-    })
+router.get("/:type/:cat", verifyToken, async (req, res) => {
+  const type = req.params.type;
+  const cat = req.params.cat;
+  try {
+    const products = await Product.find({
+      categories: {
+        $in: [type, cat],
+      },
+    });
     res.status(200).json(products);
-
-  }catch(err){
+  } catch (err) {
     console.log(err);
-
   }
-})
+});
 
 router.get("/", async (req, res) => {
   const qNew = req.query.new;

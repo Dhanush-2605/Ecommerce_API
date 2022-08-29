@@ -10,12 +10,14 @@ const productRoute = require("./routes/product");
 const orderRoute = require("./routes/order.js");
 const cartRoute = require("./routes/cart");
 const twilioRoute = require("./routes/twilio");
+const statsRoute=require("./routes/stats");
 const cors = require("cors");
 const razorRoute = require("./routes/razorpay");
 
 // app.use(bodyParser.json({ limit: '50mb' }));
 // app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 dotenv.config();
+// app.use(express.static(__dirname + '/public'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -34,6 +36,7 @@ app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/checkout", razorRoute);
 app.use("/api/twilio", twilioRoute);
+app.use("/api/stats",statsRoute);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log("Server Started...");

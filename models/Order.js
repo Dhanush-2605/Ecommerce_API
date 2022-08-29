@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const OrderSchema = mongoose.Schema(
   {
     userId: { type: String },
@@ -21,7 +20,7 @@ const OrderSchema = mongoose.Schema(
           type: String,
         },
         price: {
-          type: String,
+          type: Number,
         },
       },
     ],

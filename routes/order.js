@@ -6,6 +6,7 @@ const {
 } = require("./verifyToken");
 
 const Order = require("../models/Order");
+const Stats = require("../models/Stats");
 
 router.post("/", verifyToken, async (req, res) => {
   const newOrder = new Order(req.body);
@@ -75,43 +76,5 @@ router.get("/find/:userId", verifyToken, async (req, res) => {
 });
 
 //Get stats
-router.get("/income", verifyTokenAndAdmin, async (req, res) => {
-  const productId = req.query.pid;
-  console.log(productId);
-  // const productId=req.params.productId;
-
-  const date = new Date();
-  const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
-
-  const previousMonth = new Date(date.setMonth(lastMonth.getMonth() - 1));
-
-  try {
-    const income = await Order.aggregate([
-      {
-        $match: {
-          createdAt: { $gte: previousMonth },
-          // ...(productId && {
-            products: { $elemMatch: { productId: productId } },
- 
-          // ),
-        },
-      },
-      {
-        $project: {
-          month: { $month: "$createdAt" },
-          sales: "$amount",
-        },
-        $group: {
-          _id: "$month",
-          total: { $sum: "$sales" },
-        },
-      },
-    ]);
-    res.status(200).json(income);
-  } catch (err) {
-    // res.status(500).json(err);
-    console.log(err);
-  }
-});
 
 module.exports = router;
